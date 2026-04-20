@@ -17,7 +17,6 @@
 //   console.log(`Server is running on port ${process.env.PORT}`);
 // });
 
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -27,21 +26,16 @@ dotenv.config();
 
 const app = express();
 
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://livedigit.vercel.app"],
+  credentials: true,
+  exposedHeaders: ["Content-Disposition"],
+};
+
+app.use(cors(corsOptions));
+app.options("/{*any}", cors(corsOptions)); // ✅ pass same options to preflight
+
 app.use(express.json());
-
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "https://livedigit.vercel.app"],
-    credentials: true,
-    exposedHeaders: ["Content-Disposition"],
-  })
-);
-
-app.options("*", cors());
-
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
 
 app.use("/api/pdf", pdfRoutes);
 
@@ -49,9 +43,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-
-
 
 // import express from "express";
 // import cors from "cors";
