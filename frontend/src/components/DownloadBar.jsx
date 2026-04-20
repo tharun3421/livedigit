@@ -1,124 +1,73 @@
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { downloadPDF } from "../services/api";
-
-// export default function DownloadBar({ selectedServices, user }) {
-//   const [isDownloading, setIsDownloading] = useState(false);
-//   const navigate = useNavigate();
-
-//   const handleDownload = async () => {
-//     if (!selectedServices?.length) return;
-
-//     setIsDownloading(true);
-
-//     try {
-//       const res = await downloadPDF(selectedServices, "basic", user);
-
-//       // Create PDF blob
-//       const blob = new Blob([res.data], { type: "application/pdf" });
-//       const url = window.URL.createObjectURL(blob);
-
-//       // Trigger download
-//       const link = document.createElement("a");
-//       link.href = url;
-//       link.download = "quotation.pdf";
-//       document.body.appendChild(link);
-//       link.click();
-
-//       // Cleanup
-//       document.body.removeChild(link);
-//       window.URL.revokeObjectURL(url);
-
-//       // Clear storage
-//       localStorage.clear();
-
-//       // Redirect to home
-//       // navigate("/");
-
-//     } catch (error) {
-//       console.error("Download failed:", error);
-//       alert("Failed to download PDF. Please try again.");
-//     } finally {
-//       setIsDownloading(false);
-//     }
-//   };
-
-//   return (
-//     <div className=" bg-[#17141E] p-2 rounded">
-
-//       <button
-//         onClick={handleDownload}
-//         disabled={isDownloading}
-//         className="text-amber-50 text-sm flex items-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
-//       >
-//         {isDownloading ? (
-//           <>
-//             <svg
-//               className="animate-spin h-4 w-4"
-//               viewBox="0 0 24 24"
-//               fill="none"
-//             >
-//               <circle
-//                 cx="12"
-//                 cy="12"
-//                 r="10"
-//                 stroke="currentColor"
-//                 strokeWidth="4"
-//                 className="opacity-25"
-//               />
-//               <path
-//                 d="M4 12a8 8 0 018-8v8z"
-//                 fill="currentColor"
-//                 className="opacity-75"
-//               />
-//             </svg>
-//             Downloading...
-//           </>
-//         ) : (
-//           "Download PDF"
-//         )}
-//       </button>
-//     </div>
-//   );
-// }
-
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { downloadPDF } from "../services/api";
 
 export default function DownloadBar({ selectedServices, user }) {
   const [isDownloading, setIsDownloading] = useState(false);
-  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleDownload = async () => {
     if (!selectedServices?.length) return;
 
     setIsDownloading(true);
-    setError(null);
 
     try {
-      await downloadPDF(selectedServices, "basic", user); // ✅ just await, no res.data
+     const res = await downloadPDF(selectedServices, "basic", user);
+
+const blob = new Blob([res.data], { type: "application/pdf" });
+const url = window.URL.createObjectURL(blob);
+
+const link = document.createElement("a");
+link.href = url;
+link.download = "quotation.pdf";
+document.body.appendChild(link);
+link.click();
+
+document.body.removeChild(link);
+window.URL.revokeObjectURL(url);
+
+      // Clear storage
       localStorage.clear();
-    } catch (err) {
-      console.error("Download failed:", err);
-      setError("Failed to download PDF. Please try again.");
+
+      // Redirect to home
+      // navigate("/");
+
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("Failed to download PDF. Please try again.");
     } finally {
       setIsDownloading(false);
     }
   };
 
   return (
-    <div className="bg-[#17141E] p-2 rounded">
+    <div className=" bg-[#17141E] p-2 rounded">
+
       <button
         onClick={handleDownload}
-        disabled={isDownloading || !selectedServices?.length}
-        className="text-amber-50 text-sm flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={isDownloading}
+        className="text-amber-50 text-sm flex items-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
       >
         {isDownloading ? (
           <>
-            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-              <path d="M4 12a8 8 0 018-8v8z" fill="currentColor" className="opacity-75" />
+            <svg
+              className="animate-spin h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+                className="opacity-25"
+              />
+              <path
+                d="M4 12a8 8 0 018-8v8z"
+                fill="currentColor"
+                className="opacity-75"
+              />
             </svg>
             Downloading...
           </>
@@ -126,8 +75,8 @@ export default function DownloadBar({ selectedServices, user }) {
           "Download PDF"
         )}
       </button>
-
-      {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
     </div>
   );
 }
+
+
