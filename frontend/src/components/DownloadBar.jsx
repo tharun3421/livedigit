@@ -33,7 +33,7 @@ export default function DownloadBar({ selectedServices, user }) {
       localStorage.clear();
 
       // Redirect to home
-      navigate("/");
+      // navigate("/");
 
     } catch (error) {
       console.error("Download failed:", error);
@@ -44,7 +44,8 @@ export default function DownloadBar({ selectedServices, user }) {
   };
 
   return (
-    <div className="absolute right-40 bg-amber-500 p-2 rounded">
+    <div className=" bg-[#17141E] p-2 rounded">
+
       <button
         onClick={handleDownload}
         disabled={isDownloading}

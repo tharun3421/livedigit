@@ -67,7 +67,7 @@ export const generatePDF = async (req, res) => {
           }
 
           .logo-icon {
-            width: 100%;
+            width: auto;
             height: 44px;
           }
 
@@ -93,12 +93,14 @@ export const generatePDF = async (req, res) => {
           /* ── COMPANY + CUSTOMER INFO ── */
           .info-section {
             display: flex;
+            align-items: flex-start;
             justify-content: space-between;
             margin-bottom: 28px;
-            gap: 20px;
+            gap: 10px;
           }
 
           .company-info {
+             text-align: left;
             font-size: 12px;
             color: #444;
             line-height: 1.7;
@@ -114,9 +116,14 @@ export const generatePDF = async (req, res) => {
 
           .customer-info {
             text-align: right;
-            font-size: 12px;
+            font-size: 8px;
             color: #444;
             line-height: 1.7;
+          }
+          .customer-info td {
+            padding-bottom: 5px;
+            font-size: 12px;
+            color: #444;
           }
 
           .customer-info p {
@@ -198,7 +205,7 @@ export const generatePDF = async (req, res) => {
             margin-top: 36px;
             padding-top: 20px;
             border-top: 1px solid #eee;
-            gap:270px;
+            gap:250px;
           }
 
           .footer-col {
@@ -227,22 +234,59 @@ export const generatePDF = async (req, res) => {
             font-weight: 600;
           }
 
-          /* ── BOTTOM CONTACT BAR ── */
-          .contact-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 28px;
-            padding: 12px 20px;
-            background: #f2f2f2;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #444;
-          }
+         /* ── NOTE SECTION ── */
+.note-section {
+  margin-top: 28px;
+  padding: 14px 18px;
+  background: #fffbe6;
+  border-left: 4px solid #f5a623;
+  border-radius: 4px;
+}
 
-          .contact-bar span {
-            font-weight: 500;
-          }
+.note-section h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.note-section ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.note-section ul li {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* ── BOTTOM CONTACT BAR (pinned to bottom) ── */
+.contact-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  background: #f2f2f2;
+  border-top: 1px solid #ddd;
+  font-size: 12px;
+  color: #444;
+}
+
+.contact-bar span {
+  font-weight: 500;
+}
+
+/* Add bottom padding to body so content doesn't hide behind fixed bar */
+body {
+  padding-bottom: 60px;
+}
         </style>
       </head>
 
@@ -268,13 +312,28 @@ export const generatePDF = async (req, res) => {
             Flat No: 311, 4th Floor, RBR Complex,<br/>
             Miyapur, HYD - 500049
           </div>
-          <div class="customer-info">
-            <p><strong>Customer Name:</strong> ${user.name}</p>
-            <p><strong>Mobile:</strong> ${user.mobile}</p>
-            <p><strong>Business:</strong> ${user.business}</p>
-            <p><strong>BusinessLocation:</strong> ${user.businessLocation}</p>
-           
-          </div>
+       <div class="customer-info">
+  <table style="margin-left: auto; text-align: left; border-collapse: collapse;">
+    <tr style="line-height: 2;">
+      <td style="font-weight: 600; padding-right: 7px; white-space: nowrap;">Customer Name:</td>
+      <td>${user.name}</td>
+    </tr>
+    <tr style="line-height: 2;">
+      <td style="font-weight: 600; padding-right: 7px; white-space: nowrap;">Mobile:</td>
+      <td>${user.mobile}</td>
+    </tr>
+    <tr style="line-height: 2;">
+      <td style="font-weight: 600; padding-right: 7px; white-space: nowrap;">Business:</td>
+      <td>${user.business}</td>
+    </tr>
+    <tr style="line-height: 2;">
+      <td style="font-weight: 600; padding-right: 7px; white-space: nowrap;">Business Location:</td>
+      <td>${user.businessLocation}</td>
+    </tr>
+  </table>
+</div>
+  </table>
+</div>
         </div>
 
         <!-- ITEMS TABLE -->
@@ -310,21 +369,31 @@ export const generatePDF = async (req, res) => {
           <div class="footer-col">
             <h4>Bank Details</h4>
             <p>
-              Payment Gateway Link:<br/>
-              <span class="link">razorpay.me/@livedigitservices</span>
+              UPI Number: 9177892897
+            </p>
+            <p>
+              UPI ID: 9177892897-6@ybl
             </p>
             <p style="margin-top:8px;">
-              <strong>Authorised Person:</strong> Akula Bharani
+              <strong>Authorised Person:</strong> Livedigit Digital Marketing Services
             </p>
           </div>
         </div>
 
-        <!-- CONTACT BAR -->
-        <div class="contact-bar">
-          <span>&#128222; +91 9177954464</span>
-          <span>&#127760; www.livedigit.in</span>
-          <span>&#9993; support@livedigit.in</span>
-        </div>
+        <div class="note-section">
+  <h4>Note</h4>
+  <ul>
+    <li>Services will be discontinued after plan completion. Please renew before expiry to avoid service interruption.</li>
+    <li>Ad budget is not included in the package cost — it will be paid separately by the client based on daily or weekly requirements.</li>
+  </ul>
+</div>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar">
+  <span>&#128222; +91 9177954464</span>
+  <span>&#127760; www.livedigit.in</span>
+  <span>&#9993; support@livedigit.in</span>
+</div>
 
       </body>
       </html>

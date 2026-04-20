@@ -1,19 +1,17 @@
+
 export default function ServiceCard({ service, selected, onToggle }) {
   return (
-    <div className="mt-5 ml-5">
-     <div className="flex">
-       <input
-       className="accent-amber-500 w-5 h-5 cursor-pointer"
+    <div className="flex items-center gap-4">
+      <input
+        className="accent-[#17141E] w-5 h-5 cursor-pointer shrink-0"
         type="checkbox"
         checked={selected}
-        onChange={() => onToggle(service)} 
+        onChange={() => onToggle(service)}
       />
-
-      <div className="flex flex-col ml-5">
+      <div className="flex flex-col">
         <h3 className="font-bold">{service.title}</h3>
-      <p className="font-sans text-sm">{service.description}</p>
+        <p className="font-sans text-sm text-gray-500">{service.description}</p>
       </div>
-     </div>
     </div>
   );
 }
