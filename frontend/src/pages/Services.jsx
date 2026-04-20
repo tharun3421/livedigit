@@ -33,8 +33,8 @@ const handleWhatsApp = () => {
   return (
     <div className=" w-full h-screen flex items-start justify-center">
       <div className="w-[90vw] h-full bg-[#F8F9FA] ">
-        <div className="bg-[#17141E] text-white rounded flex items-center justify-between p-2 px-6">
-          <h1 className="p-1 px-2 font-bold text-xl bg-amber-50 text-black rounded uppercase">Our Services</h1>
+        <div className="bg-[#0B1422] text-white rounded flex items-center justify-between p-2 px-6">
+          <h1 className="p-1 px-2 font-bold text-xl bg-amber-50 text-[#0B1422] rounded uppercase">Our Services</h1>
           {user && (
             <p className="capitalize">Customer: {user.name}</p>
           )}

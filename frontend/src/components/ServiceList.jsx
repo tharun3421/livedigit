@@ -31,8 +31,8 @@ export default function ServiceList({ services, onSelectionChange }) {
   };
 
   return (
-  <div className="h-[80vh] w-full bg-amber-50 overflow-y-auto no-scrollbar px-6 py-4">
-    <div className="grid grid-cols-2 gap-4 max-w-5xl mx-auto mb-6 mt-6">
+  <div className="h-[80vh] w-full bg-amber-50 overflow-y-auto no-scrollbar px-6 py-4"  data-lenis-prevent>
+    <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto mb-6 mt-6">
       {services.map((service) => {
         const selectedItem = selected.find((s) => s.id === service.id);
 

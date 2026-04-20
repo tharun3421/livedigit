@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import UserModal from "../components/UserModal";
 import QuoteSlider from "../components/QuoteSlider";
 import Navbar from "../components/Navbar";
-import Purpose from "../components/Purpose";
+import Purpose from "../sections/Purpose";
+import AboutUs from "../sections/AboutUs";
+import HoriScroll from "../sections/HoriScroll";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -19,46 +21,69 @@ export default function Home() {
   };
 
   return (
-   <div>
-    <Navbar/>
-     <div className="bg-white w-full h-screen flex flex-col items-center justify-center">     
-      <div className="relative rounded w-[80vw] h-[70vh] flex flex-col items-center justify-center p-6 overflow-hidden">
+    <div>
+      <Navbar />
 
-        {/* Video Background */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover rounded"
-          src="/digi_video.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+      {/* Hero Section */}
+      <div className="bg-white w-full min-h-screen flex flex-col items-center justify-center ">
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/50 rounded" />
+        <div className="relative rounded w-full md:w-[80vw] lg:w-[80vw] 
+                        h-[60vh] md:h-[65vh] lg:h-[70vh] 
+                        flex flex-col items-center justify-center p-4 md:p-6 overflow-hidden">
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <QuoteSlider />
-          <p className="text-sm font-medium text-[#aaa8af] mt-2">" No confusion, no delays — just smart quotes tailored for you."</p>
+          {/* Video Background */}
+          <video
+            className="absolute inset-0 w-full h-full object-cover rounded"
+            src="/digi_video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
 
-          {!user && (
-            <button
-              className="bg-white p-3 rounded-xl mt-16 text-[#47444e] font-medium text-sm cursor-pointer"
-              onClick={() => setShowModal(true)}
-            >
-              Enter User Details
-            </button>
-          )}
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/50 rounded" />  
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center text-center px-2">
+            <QuoteSlider />
+
+            <p className="text-xs md:text-sm font-medium text-[#aaa8af] mt-2 max-w-md">
+              "No confusion, no delays — just smart quotes tailored for you."
+            </p>
+
+            {!user && (
+              <button
+  onClick={() => setShowModal(true)}
+  className="relative overflow-hidden group mt-10 md:mt-16 
+             px-4 py-2 md:px-5 md:py-3 rounded-xl 
+             border border-[#b3b8c0] text-white 
+             font-medium text-xs md:text-sm cursor-pointer"
+>
+
+  {/* Background Layer */}
+  <span className="absolute inset-0 bg-orange-400 scale-y-0 origin-bottom 
+                   transition-transform duration-300 ease-in-out 
+                   group-hover:scale-y-100"></span>
+
+  {/* Text */}
+  <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+    Enter User Details
+  </span>
+
+</button>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* ✅ Modal moved OUTSIDE the overflow-hidden div */}
-      {showModal && (
-        <UserModal onSave={handleSave} onClose={() => setShowModal(false)} />
-      )}
+        {/* Modal */}
+        {showModal && (
+          <UserModal onSave={handleSave} onClose={() => setShowModal(false)} />
+        )}
+      </div>
+        <AboutUs/>
+        <Purpose />
+        <HoriScroll/>
     </div>
-    <Purpose/>
-   </div>
   );
 }

@@ -29,7 +29,7 @@ export default function QuoteSlider({ quotes = defaultQuotes, interval = 3000 })
 
   return (
     <div
-      className="text-[#c7c5cc] text-4xl font-bold font-sans  text-center transition-all duration-500"
+      className="font-poppins text-[#ffffff] text-4xl font-bold   text-center transition-all duration-500"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -37,7 +37,7 @@ export default function QuoteSlider({ quotes = defaultQuotes, interval = 3000 })
     >
       <p>
         "{parts[0]}
-        <span className="font-bold text-amber-500">{highlight}</span>
+        <span className="font-bold text-orange-400">{highlight}</span>
         "
       </p>
     </div>

@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import "tailwindcss";
-
 /* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -8,4 +8,23 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+html, body {
+  height: auto;
+   scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+  font-family: var(--font-poppins);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+
+.lenis {
+  scroll-behavior: auto;
+}
+@theme {
+  --font-poppins: "Poppins", sans-serif;
 }
