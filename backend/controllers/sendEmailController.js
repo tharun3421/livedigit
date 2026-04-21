@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config(); 
 
 export const sendEmail = async (req, res) => {
   const { name, email, mobile, business, businessLocation } = req.body;
@@ -13,8 +15,8 @@ export const sendEmail = async (req, res) => {
     });
 
     const mailOptions = {
-      from: `"Contact Form" <${process.env.EMAIL_USER}>`,  // ✅ must be your Gmail
-      replyTo: email,                                        // ✅ reply goes to user
+      from: `"Contact Form" <${process.env.EMAIL_USER}>`,  
+      replyTo: email,                                       
       to: "mtharun342@gmail.com",
       subject: "New User Details Submission",
       html: `
