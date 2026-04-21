@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const sendQuotationEmail = async ({ user, pdfBuffer }) => {
   const transporter = nodemailer.createTransport({
