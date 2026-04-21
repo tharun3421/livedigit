@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function UserModal({ onSave, onClose }) {
+export default function UserModal({ onClose }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -12,12 +12,11 @@ export default function UserModal({ onSave, onClose }) {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
-  const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async () => {
     const { name, email, mobile, business, businessLocation } = form;
@@ -35,21 +34,20 @@ export default function UserModal({ onSave, onClose }) {
       setLoading(true);
       await axios.post(`${API}/api/send-email`, form);
       alert("Details sent successfully!");
-      onClose();
-      navigate("/services"); 
+      navigate("/services");
     } catch (error) {
       console.error("Email error:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "Failed to send email. Check console.");
+      alert(error.response?.data?.message || "Failed to send email.");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div
       className="fixed inset-0 bg-[#0B1422] flex items-center justify-center z-50"
       onClick={onClose}
     >
-      {/* Modal */}
       <div
         className="bg-white w-[90%] max-w-md rounded-2xl p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
@@ -66,54 +64,33 @@ export default function UserModal({ onSave, onClose }) {
         </div>
 
         {/* Inputs */}
-        <input
-          name="name"
-          placeholder="Customer Name"
-          value={form.name || ""}
-          onChange={handleChange}
-          className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-        />
+        {[
+          { name: "name", placeholder: "Customer Name" },
+          { name: "email", placeholder: "Email Address" },
+          { name: "mobile", placeholder: "Customer Mobile" },
+          { name: "business", placeholder: "Business" },
+          { name: "businessLocation", placeholder: "Business Location" },
+        ].map(({ name, placeholder }, i, arr) => (
+          <input
+            key={name}
+            name={name}
+            placeholder={placeholder}
+            value={form[name]}
+            onChange={handleChange}
+            className={`w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 ${
+              i === arr.length - 1 ? "mb-5" : "mb-3"
+            }`}
+          />
+        ))}
 
-         <input
-          name="email"
-          placeholder="Email Address"
-          value={form.email || ""}
-          onChange={handleChange}
-          className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-        />
-
-        <input
-          name="mobile"
-          placeholder="Customer Mobile"
-          value={form.mobile || ""}
-          onChange={handleChange}
-          className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-        />
-
-        <input
-          name="business"
-          placeholder="Business"
-          value={form.business || ""}
-          onChange={handleChange}
-          className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-        />
-
-        <input
-          name="businessLocation"
-          placeholder="Business Location"
-          value={form.businessLocation || ""}
-          onChange={handleChange}
-          className="w-full border rounded-md p-2 mb-5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-        />
-
-        {/* Button */}
-          <button
-      onClick={handleSubmit}
-      disabled={loading}
-      className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm disabled:opacity-50"
-    >
-      {loading ? "Sending..." : "Save"}
-    </button>
+        {/* Submit Button */}
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm disabled:opacity-50"
+        >
+          {loading ? "Sending..." : "Save"}
+        </button>
       </div>
     </div>
   );
