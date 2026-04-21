@@ -15,6 +15,8 @@ export default function UserModal({ onSave, onClose }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const API = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async () => {
     const { name,email, mobile, business, businessLocation } = form;
 
@@ -29,7 +31,7 @@ export default function UserModal({ onSave, onClose }) {
 
 
      try {
-    await axios.post("http://localhost:5000/api/send-email", form); // ✅ API CALL
+    await axios.post(`${API}/api/send-email`, form); 
     alert("Details sent successfully!");
     onClose();
   } catch (error) {
