@@ -23,6 +23,13 @@ app.use(express.json());
 
 app.use("/api/pdf", pdfRoutes);
 
+app.use('/',(req,res)=>{
+  res.send({
+    activeStatus:true,
+    error:false,
+  })
+})
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
