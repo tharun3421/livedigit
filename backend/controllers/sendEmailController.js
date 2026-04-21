@@ -1,9 +1,15 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-dotenv.config(); 
+dotenv.config();
 
 export const sendEmail = async (req, res) => {
   const { name, email, mobile, business, businessLocation } = req.body;
+
+  // ✅ Add these debug logs
+  console.log("=== sendEmail called ===");
+  console.log("Body:", req.body);
+  console.log("EMAIL_USER:", process.env.EMAIL_USER);
+  console.log("EMAIL_PASS length:", process.env.EMAIL_PASS?.length);
 
   try {
     const transporter = nodemailer.createTransport({
@@ -14,10 +20,13 @@ export const sendEmail = async (req, res) => {
       },
     });
 
-    const mailOptions = {
-      from: `"Contact Form" <${process.env.EMAIL_USER}>`,  
-      replyTo: email,                                       
-      to: "mtharun342@gmail.com",
+    await transporter.verify(); // ✅ tells exact error
+    console.log("✅ Transporter verified");
+
+    await transporter.sendMail({
+      from: `"Contact Form" <${process.env.EMAIL_USER}>`,
+      replyTo: email,
+      to: process.env.EMAIL_USER,
       subject: "New User Details Submission",
       html: `
         <h3>User Details</h3>
@@ -27,12 +36,12 @@ export const sendEmail = async (req, res) => {
         <p><b>Business:</b> ${business}</p>
         <p><b>Location:</b> ${businessLocation}</p>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    console.log("✅ Email sent");
     res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
-    console.error("Nodemailer error:", error.message); // ✅ log actual error
+    console.error("❌ Nodemailer error:", error.message);
     res.status(500).json({ message: "Email failed", error: error.message });
   }
 };
