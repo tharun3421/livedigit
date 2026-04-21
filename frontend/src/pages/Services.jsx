@@ -29,12 +29,14 @@ const handleInstagram = () => {
 const handleWhatsApp = () => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (isMobile) {
-    window.location.href = `whatsapp://`;
+    window.open(`https://wa.me/`, `_blank`);
   } else {
-    window.open(`https://web.whatsapp.com`, `_blank`);
+    window.location.href = `whatsapp://`;
+    setTimeout(() => {
+      window.open(`https://web.whatsapp.com`, `_blank`);
+    }, 1500);
   }
 };
-
 
   return (
     <div className=" w-full h-screen flex items-start justify-center">
