@@ -1,11 +1,19 @@
-
+import path from "path";
+import { fileURLToPath } from "url";
 import fs from "fs";
 import { createPDF } from "../utils/pdfGenerator.js";
 
 export const generatePDF = async (req, res) => {
-  const logoBase64 = fs.readFileSync("public/logo.png", "base64");
+  // const logoBase64 = fs.readFileSync("public/logo.png", "base64");
+
+  const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
   try {
     const { services, role, user } = req.body;
+    const logoPath = path.join(__dirname, "../public/logo.png");
+    const logoBase64 = fs.readFileSync(logoPath, "base64");
     let total = 0;
 
     const itemsHTML = services
