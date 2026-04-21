@@ -36,7 +36,7 @@ export default function UserModal({ onSave, onClose }) {
       await axios.post(`${API}/api/send-email`, form);
       alert("Details sent successfully!");
       onClose();
-      navigate("/services"); // ✅ redirect after success
+      navigate("/services"); 
     } catch (error) {
       console.error("Email error:", error.response?.data || error.message);
       alert(error.response?.data?.message || "Failed to send email. Check console.");
