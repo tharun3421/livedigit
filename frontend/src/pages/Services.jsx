@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ServiceList from "../components/ServiceList";
 import DownloadBar from "../components/DownloadBar";
 import { services } from "../data/servicesData";
+import { sendQuotationEmail } from "../services/api";
 
 export default function Services() {
   const [selectedServices, setSelectedServices] = useState([]);
@@ -16,8 +17,37 @@ export default function Services() {
 
 
  // Opens Gmail in browser (most reliable for Windows)
-const handleEmail = () => {
-  window.open(`https://mail.google.com`, "_blank");
+// const handleEmail = () => {
+//   window.open(`https://mail.google.com`, "_blank");
+// };
+
+const handleEmail = async () => {
+  // Validation
+  if (!selectedServices?.length) {
+    alert("Please select at least one service");
+    return;
+  }
+
+  if (!user) {
+    alert("User details not found");
+    return;
+  }
+
+  if (!user.email) {
+    alert("Please enter your email");
+    return;
+  }
+
+  try {
+    alert("Sending quotation... ⏳");
+
+    await sendQuotationEmail(selectedServices, "basic", user);
+
+    alert("✅ Quotation sent to your email!");
+  } catch (err) {
+    console.error(err);
+    alert("❌ Failed to send email");
+  }
 };
 
 // Opens Instagram in browser (Instagram Windows app doesn't support deep links)

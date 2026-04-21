@@ -14,12 +14,17 @@ export default function UserModal({ onSave, onClose }) {
   };
 
   const handleSubmit = () => {
-    const { name, mobile, business, businessLocation } = form;
+    const { name,email, mobile, business, businessLocation } = form;
 
-    if (!name || !mobile || !business || !businessLocation) {
+    if (!name || !email ||!mobile || !business || !businessLocation) {
       alert("Please fill all fields");
       return;
     }
+       if (!/\S+@\S+\.\S+/.test(email)) {
+      alert("Enter a valid email");
+      return;
+    }
+
 
     onSave(form);
   };
@@ -49,7 +54,15 @@ export default function UserModal({ onSave, onClose }) {
         <input
           name="name"
           placeholder="Customer Name"
-          value={form.name}
+          value={form.name || ""}
+          onChange={handleChange}
+          className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+        />
+
+         <input
+          name="email"
+          placeholder="Email Address"
+          value={form.email || ""}
           onChange={handleChange}
           className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
@@ -57,7 +70,7 @@ export default function UserModal({ onSave, onClose }) {
         <input
           name="mobile"
           placeholder="Customer Mobile"
-          value={form.mobile}
+          value={form.mobile || ""}
           onChange={handleChange}
           className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
@@ -65,7 +78,7 @@ export default function UserModal({ onSave, onClose }) {
         <input
           name="business"
           placeholder="Business"
-          value={form.business}
+          value={form.business || ""}
           onChange={handleChange}
           className="w-full border rounded-md p-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
@@ -73,7 +86,7 @@ export default function UserModal({ onSave, onClose }) {
         <input
           name="businessLocation"
           placeholder="Business Location"
-          value={form.businessLocation}
+          value={form.businessLocation || ""}
           onChange={handleChange}
           className="w-full border rounded-md p-2 mb-5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
