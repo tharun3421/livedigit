@@ -25,10 +25,16 @@ const handleInstagram = () => {
   window.open(`https://instagram.com`, "_blank");
 };
 
-// Opens WhatsApp Desktop app
+
 const handleWhatsApp = () => {
-  window.open(`whatsapp://`, "_blank");
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = `whatsapp://`;
+  } else {
+    window.open(`https://web.whatsapp.com`, `_blank`);
+  }
 };
+
 
   return (
     <div className=" w-full h-screen flex items-start justify-center">
