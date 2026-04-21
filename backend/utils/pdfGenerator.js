@@ -25,7 +25,7 @@ export const createPDF = async (html) => {
     });
 
     // ✅ Debug step (VERY IMPORTANT)
-    await page.screenshot({ path: "debug.png" });
+    // await page.screenshot({ path: "debug.png" });
 
     console.log("📸 Screenshot taken");
 
