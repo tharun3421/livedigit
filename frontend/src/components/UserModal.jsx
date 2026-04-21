@@ -33,6 +33,7 @@ export default function UserModal({ onClose }) {
     try {
       setLoading(true);
       await axios.post(`${API}/api/send-email`, form);
+      localStorage.setItem("user", JSON.stringify(form));
       alert("Details sent successfully!");
       navigate("/services");
     } catch (error) {
