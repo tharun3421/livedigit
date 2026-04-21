@@ -14,7 +14,7 @@ export default function UserModal({ onSave, onClose }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { name,email, mobile, business, businessLocation } = form;
 
     if (!name || !email ||!mobile || !business || !businessLocation) {
