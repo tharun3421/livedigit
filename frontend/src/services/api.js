@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = import.meta.env.VITE_API_URL;
+const API = "https://livedigit-quotes.onrender.com";
 
 export const downloadPDF = async (services, role, user) => {
   const response = await axios.post(
