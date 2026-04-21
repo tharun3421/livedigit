@@ -1,15 +1,17 @@
-
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function UserModal({ onSave, onClose }) {
   const [form, setForm] = useState({
     name: "",
-    email:"",
+    email: "",
     mobile: "",
     business: "",
     businessLocation: "",
   });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,30 +20,30 @@ export default function UserModal({ onSave, onClose }) {
   const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async () => {
-    const { name,email, mobile, business, businessLocation } = form;
+    const { name, email, mobile, business, businessLocation } = form;
 
-    if (!name || !email ||!mobile || !business || !businessLocation) {
+    if (!name || !email || !mobile || !business || !businessLocation) {
       alert("Please fill all fields");
       return;
     }
-       if (!/\S+@\S+\.\S+/.test(email)) {
+    if (!/\S+@\S+\.\S+/.test(email)) {
       alert("Enter a valid email");
       return;
     }
 
-
-     try {
-    await axios.post(`${API}/api/send-email`, form); 
-    alert("Details sent successfully!");
-    onClose();
-  } catch (error) {
-    console.error(error);
-    alert("Failed to send email");
-  }
-
-    // onSave(form);
+    try {
+      setLoading(true);
+      await axios.post(`${API}/api/send-email`, form);
+      alert("Details sent successfully!");
+      onClose();
+      navigate("/services"); // ✅ redirect after success
+    } catch (error) {
+      console.error("Email error:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Failed to send email. Check console.");
+    } finally {
+      setLoading(false);
+    }
   };
-
   return (
     <div
       className="fixed inset-0 bg-[#0B1422] flex items-center justify-center z-50"
@@ -105,12 +107,13 @@ export default function UserModal({ onSave, onClose }) {
         />
 
         {/* Button */}
-        <button
-          onClick={handleSubmit}
-          className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm"
-        >
-          Save
-        </button>
+          <button
+      onClick={handleSubmit}
+      disabled={loading}
+      className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm disabled:opacity-50"
+    >
+      {loading ? "Sending..." : "Save"}
+    </button>
       </div>
     </div>
   );
