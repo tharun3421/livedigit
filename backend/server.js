@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import pdfRoutes from "./routes/pdfRoutes.js";
 import emailRoutes from "./routes/emailRoutes.js";
-
+import emailSendRoutes from "./routes/sendEmailRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -27,6 +27,7 @@ app.get("/health", (req, res) => {
 
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/email", emailRoutes);
+app.use("/api", emailSendRoutes);
 
 app.get("/api/email/test", (req, res) => {
   res.send("Email route working locally");
