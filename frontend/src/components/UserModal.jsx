@@ -4,6 +4,7 @@ import { useState } from "react";
 export default function UserModal({ onSave, onClose }) {
   const [form, setForm] = useState({
     name: "",
+    email:"",
     mobile: "",
     business: "",
     businessLocation: "",
@@ -26,7 +27,16 @@ export default function UserModal({ onSave, onClose }) {
     }
 
 
-    onSave(form);
+     try {
+    await axios.post("http://localhost:5000/api/send-email", form); // ✅ API CALL
+    alert("Details sent successfully!");
+    onClose();
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send email");
+  }
+
+    // onSave(form);
   };
 
   return (
