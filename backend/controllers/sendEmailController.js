@@ -8,12 +8,13 @@ export const sendEmail = async (req, res) => {
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // use app password (important)
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     const mailOptions = {
-      from: email,
+      from: `"Contact Form" <${process.env.EMAIL_USER}>`,  // ✅ must be your Gmail
+      replyTo: email,                                        // ✅ reply goes to user
       to: "mtharun342@gmail.com",
       subject: "New User Details Submission",
       html: `
@@ -27,10 +28,9 @@ export const sendEmail = async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-
     res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Email failed" });
+    console.error("Nodemailer error:", error.message); // ✅ log actual error
+    res.status(500).json({ message: "Email failed", error: error.message });
   }
 };
