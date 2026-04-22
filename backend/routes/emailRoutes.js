@@ -4,6 +4,6 @@ import { generateAndSendEmail } from "../controllers/emailController.js";
 
 const router = express.Router();
 
-router.post("/send", generateAndSendEmail);
+router.post("/", generateAndSendEmail);
 
 export default router;
