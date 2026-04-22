@@ -65,10 +65,10 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <section className="w-full py-16 md:px-10">
+    <section className=" w-full mt-4  md:px-10 flex flex-col items-center justify-center">
       <div ref={sectionRef} className="max-w-7xl mx-auto p-3">
 
-        <div className="w-full md:w-[70vw]">
+        <div className="w-full md:w-[70vw] ">
           
           {/* ✅ FIXED HEADING */}
           <h2
@@ -80,7 +80,7 @@ const AboutUs = () => {
 
           <p
             ref={textRef}
-            className="text-xl md:text-2xl lg:text-3xl leading-relaxed"
+            className="text-base md:text-2xl lg:text-3xl leading-relaxed"
           >
             At LiveDigit, we combine innovation with engineering excellence to
             transform ideas into impactful digital experiences. From concept to

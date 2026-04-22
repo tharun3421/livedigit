@@ -25,10 +25,10 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="bg-white w-full min-h-screen flex flex-col items-center justify-center ">
+      <div className=" w-full min-h-full flex flex-col items-center justify-start ">
 
         <div className="relative rounded w-full md:w-[80vw] lg:w-[80vw] 
-                        h-[60vh] md:h-[65vh] lg:h-[70vh] 
+                        h-[70vh] mt-6 md:h-[65vh] lg:h-[85vh] lg:mt-5
                         flex flex-col items-center justify-center p-4 md:p-6 overflow-hidden">
 
           {/* Video Background */}
