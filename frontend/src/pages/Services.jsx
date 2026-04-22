@@ -128,6 +128,7 @@ import ServiceList from "../components/ServiceList";
 import DownloadBar from "../components/DownloadBar";
 import { services } from "../data/servicesData";
 import { sendQuotationEmail } from "../services/api";
+import { sendQuotationEmail, downloadPDF } from "../services/api"; // ✅ add downloadPDF
 
 export default function Services() {
   const [selectedServices, setSelectedServices] = useState([]);
@@ -164,15 +165,55 @@ export default function Services() {
 
   const handleInstagram = () => window.open(`https://instagram.com`, "_blank");
 
-  const handleWhatsApp = () => {
+  // const handleWhatsApp = () => {
+  //   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  //   if (isMobile) {
+  //     window.open(`https://wa.me/`, `_blank`);
+  //   } else {
+  //     window.location.href = `whatsapp://`;
+  //     setTimeout(() => window.open(`https://web.whatsapp.com`, `_blank`), 1500);
+  //   }
+  // };
+
+const [isWhatsApp, setIsWhatsApp] = useState(false); // ✅ add this with other states
+
+const handleWhatsApp = async () => {
+  if (!selectedServices?.length) return alert("Please select at least one service");
+
+  try {
+    setIsWhatsApp(true);
+
+    const res = await downloadPDF(selectedServices, "basic", user);
+    const blob = new Blob([res.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "quotation.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+
+    const message = encodeURIComponent(
+      `Hi, please find the attached quotation PDF for ${user?.business || "your business"}. Kindly check the downloaded file.`
+    );
+
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-      window.open(`https://wa.me/`, `_blank`);
+      window.open(`https://wa.me/?text=${message}`, "_blank");
     } else {
-      window.location.href = `whatsapp://`;
-      setTimeout(() => window.open(`https://web.whatsapp.com`, `_blank`), 1500);
+      window.open(`https://web.whatsapp.com/send?text=${message}`, "_blank");
     }
-  };
+
+  } catch (error) {
+    console.error("WhatsApp share failed:", error);
+    alert("❌ Failed to generate PDF");
+  } finally {
+    setIsWhatsApp(false);
+  }
+};
+
 
   return (
     <div className="w-full h-screen flex items-start justify-center">
@@ -212,11 +253,15 @@ export default function Services() {
 )}
 
               {/* WhatsApp */}
-              <i
-                className="fa-brands fa-whatsapp cursor-pointer text-xl hover:text-green-500 transition-colors"
-                onClick={handleWhatsApp}
-                title="Chat on WhatsApp"
-              ></i>
+             <i
+  className={`fa-brands fa-whatsapp text-xl transition-colors ${
+    isWhatsApp
+      ? "text-gray-400 cursor-not-allowed animate-pulse"
+      : "cursor-pointer hover:text-green-500"
+  }`}
+  onClick={!isWhatsApp ? handleWhatsApp : undefined}
+  title={isWhatsApp ? "Preparing PDF..." : "Share on WhatsApp"}
+></i>
 
               {/* Instagram */}
               <i
@@ -231,11 +276,11 @@ export default function Services() {
           </div>
 
           {/* ✅ loading message below icons */}
-          {isSending && (
-            <p className="text-xs text-gray-500 mt-2 mb-1 p-2 animate-pulse">
-              ⏳ Generating your quotation, please wait...
-            </p>
-          )}
+         {(isSending || isWhatsApp) && (
+  <p className="text-xs text-gray-500 mt-2 mb-1 p-2 animate-pulse">
+    {isWhatsApp ? "⏳ Preparing PDF for WhatsApp..." : "⏳ Generating your quotation, please wait..."}
+  </p>
+)}
         </div>
       </div>
     </div>
