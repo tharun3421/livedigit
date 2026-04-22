@@ -142,22 +142,25 @@ export default function Services() {
     axios.get("https://livedigit-quotes.onrender.com/health").catch(() => {});
   }, []);
 
-  const handleEmail = async () => {
-    if (!selectedServices?.length) return alert("Please select at least one service");
-    if (!user) return alert("User details not found");
-    if (!user.email) return alert("Please enter your email");
+ const handleEmail = async () => {
+  if (!selectedServices?.length) return alert("Please select at least one service");
+  if (!user) return alert("User details not found");
+  if (!user.email) {
+    alert("You didn't provide an email address. Please go back and enter your email to receive the quotation.");
+    return;
+  }
 
-    try {
-      setIsSending(true); // ✅ show loading
-      await sendQuotationEmail(selectedServices, "basic", user);
-      alert("✅ Quotation sent to your email!");
-    } catch (err) {
-      console.error(err);
-      alert("❌ Failed to send email");
-    } finally {
-      setIsSending(false); // ✅ hide loading
-    }
-  };
+  try {
+    setIsSending(true);
+    await sendQuotationEmail(selectedServices, "basic", user);
+    alert("✅ Quotation sent to your email!");
+  } catch (err) {
+    console.error(err);
+    alert("❌ Failed to send email");
+  } finally {
+    setIsSending(false);
+  }
+};
 
   const handleInstagram = () => window.open(`https://instagram.com`, "_blank");
 
@@ -191,15 +194,22 @@ export default function Services() {
             <div className="flex gap-6">
 
               {/* Gmail / Email */}
-              <i
-                className={`fa-regular fa-envelope text-xl transition-colors ${
-                  isSending
-                    ? "text-gray-400 cursor-not-allowed animate-pulse" // ✅ loading state
-                    : "cursor-pointer hover:text-red-500"
-                }`}
-                onClick={!isSending ? handleEmail : undefined}
-                title={isSending ? "Sending..." : "Send us an Email"}
-              ></i>
+            {user?.email ? (
+            <i
+              className={`fa-regular fa-envelope text-xl transition-colors ${
+                isSending
+                  ? "text-gray-400 cursor-not-allowed animate-pulse"
+                  : "cursor-pointer hover:text-red-500"
+              }`}
+              onClick={!isSending ? handleEmail : undefined}
+              title={isSending ? "Sending..." : "Send Quotation to Email"}
+            ></i>
+) : (
+  <i
+    className="fa-regular fa-envelope text-xl text-gray-300 cursor-not-allowed"
+    title="No email provided"
+  ></i>
+)}
 
               {/* WhatsApp */}
               <i

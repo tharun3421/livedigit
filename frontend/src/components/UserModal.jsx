@@ -25,7 +25,7 @@ export default function UserModal({ onClose }) {
       alert("Please fill all fields");
       return;
     }
-    if (!/\S+@\S+\.\S+/.test(email)) {
+    if (form.email &&!/\S+@\S+\.\S+/.test(email)) {
       alert("Enter a valid email");
       return;
     }
@@ -68,7 +68,7 @@ export default function UserModal({ onClose }) {
         {/* Inputs */}
         {[
           { name: "name", placeholder: "Customer Name" },
-          { name: "email", placeholder: "Email Address" },
+          { name: "email", placeholder: "Email Address (optional)" },
           { name: "mobile", placeholder: "Customer Mobile" },
           { name: "business", placeholder: "Business Name" },
           { name: "businessLocation", placeholder: "Business Location" },
