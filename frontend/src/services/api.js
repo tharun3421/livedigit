@@ -10,7 +10,7 @@
 //     { services, role, user },
 //     { 
 //       responseType: "blob",
-//       timeout: 60000, // ✅ 60 seconds — gives Render time to wake up + generate PDF
+//       timeout: 120000, 
 //     }
 //   );
 
@@ -51,7 +51,7 @@ export const sendQuotationEmail = async (services, role, user) => {
   await wakeUp();
 
   return await axios.post(
-    `${API}/api/send-email`,
+    `${API}/api/send-email/send`,
     { services, role, user },
     { timeout: 120000 }
   );
