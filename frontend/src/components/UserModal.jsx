@@ -34,11 +34,11 @@ export default function UserModal({ onClose }) {
       setLoading(true);
       await axios.post(`${API}/api/send-email`, form);
       localStorage.setItem("user", JSON.stringify(form));
-      alert("Details sent successfully!");
+      // alert("Details sent successfully!");
       navigate("/services");
     } catch (error) {
       console.error("Email error:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "Failed to send email.");
+      alert(error.response?.data?.message || "Failed to Load Services.");
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,7 @@ export default function UserModal({ onClose }) {
           <h2 className="text-lg font-semibold">Enter Your Details</h2>
           <button
             onClick={onClose}
-            className="cursor-pointer w-8 h-8 flex items-center justify-center bg-[#0B1422] text-white rounded-full"
+            className="cursor-pointer w-8 h-8 flex items-center justify-center font-extrabold bg-amber-500 text-amber-100 rounded-full"
           >
             ✕
           </button>
@@ -69,7 +69,7 @@ export default function UserModal({ onClose }) {
           { name: "name", placeholder: "Customer Name" },
           { name: "email", placeholder: "Email Address" },
           { name: "mobile", placeholder: "Customer Mobile" },
-          { name: "business", placeholder: "Business" },
+          { name: "business", placeholder: "Business Name" },
           { name: "businessLocation", placeholder: "Business Location" },
         ].map(({ name, placeholder }, i, arr) => (
           <input
@@ -90,7 +90,7 @@ export default function UserModal({ onClose }) {
           disabled={loading}
           className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm disabled:opacity-50"
         >
-          {loading ? "Sending..." : "Save"}
+          {loading ? "Loading services..." : "Explore Services"}
         </button>
       </div>
     </div>

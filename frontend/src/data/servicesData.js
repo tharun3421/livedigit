@@ -1,145 +1,23 @@
+
 export const services = [
-  {
-    id: "meta_ads",
-    title: "Mata Ads",
-    pricing: {
-      basic: 3000,  
-    }
-  },
-  {
-    id: "google_ads",
-    title: "Google Ads",
-    pricing: {
-      basic: 3000,
-    }
-  },
-  {
-    id: "youtube_ads",
-    title: "Youtube Ads",
-    pricing: {
-      basic: 3000,
-    }
-  },
-  {
-    id: "voice_over_video_design",
-    title: "Voice Over Video Designs ",
-    pricing: {
-      basic: 1000,
-    }
-  },
-  {
-    id: "social_media_reels",
-    title: "Social Media Reels",
-    pricing: {
-      basic: 700,
-    }
-  },
-   {
-    id: "animated_graphic_posters",
-    title: "Animated Graphic Posters",
-    pricing: {
-      basic: 400,
-    }
-  },
-   {
-    id: "customized_posters_flyers",
-    title: "Customized Posters / Flyers",
-    pricing: {
-      basic: 300,
-    }
-  },
-   {
-    id: "animated_logos",
-    title: "Animated Logos",
-    pricing: {
-      basic: 1000,
-    }
-  },
-   {
-    id: "customized_brand_logo",
-    title: "Customized Brand Logo",
-    pricing: {
-      basic: 600,
-    }
-  },
-   {
-    id: "static_website",
-    title: "Static Websites",
-    pricing: {
-      basic: 7000,
-    }
-  },
-  {
-    id: "landing_page",
-    title: "Landing pages",
-    pricing: {
-      basic: 4000,
-    }
-  },
-  {
-    id: "dynamic_website",
-    title: "Dynamic Websites",
-    pricing: {
-      basic: 15000,
-    }
-  },
-  {
-    id: "ecommerce_website",
-    title: "E-commerce Websites",
-    pricing: {
-      basic: 20000,
-    }
-  },
-  {
-    id: "gmb_profile_setup",
-    title: "GMB Profile Setup",
-    pricing: {
-      basic: 2000,
-    }
-  },
-  {
-    id: "social_media_management",
-    title: "Social Media Management",
-    pricing: {
-      basic: 8000,
-    }
-  },
-  {
-    id: "on_page_seo",
-    title: "On Page SEO",
-    pricing: {
-      basic: 6000,
-    }
-  },
-  {
-    id: "complete_seo",
-    title: "Complete SEO",
-    pricing: {
-      basic: 10000,
-    }
-    ,
-   description: "on-page + off-page + Technical",
-  },
-   {
-    id: "ecommerce_seo",
-    title: "E-commerce SEO",
-    pricing: {
-      basic: 20000,
-    }
-  },
-   {
-    id: "android_mobile_app",
-    title: "Android Mobile App",
-    pricing: {
-      basic: 35000,
-    }
-  },
-   {
-    id: "android_ios",
-    title: "Android + IOS Mobile App",
-    pricing: {
-      basic: 50000,
-    }
-  },
-  
+  { id: "meta_ads", title: "Meta Ads", icon: "faFacebook", iconLib: "brands", pricing: { basic: 3000 } },
+  { id: "google_ads", title: "Google Ads", icon: "faGoogle", iconLib: "brands", pricing: { basic: 3000 } },
+  { id: "youtube_ads", title: "Youtube Ads", icon: "faYoutube", iconLib: "brands", pricing: { basic: 3000 } },
+  { id: "voice_over_video_design", title: "Voice Over Video Designs", icon: "faVideo", iconLib: "solid", pricing: { basic: 1000 } },
+  { id: "social_media_reels", title: "Social Media Reels", icon: "faFilm", iconLib: "solid", pricing: { basic: 700 } },
+  { id: "animated_graphic_posters", title: "Animated Graphic Posters", icon: "faMagic", iconLib: "solid", pricing: { basic: 400 } },
+  { id: "customized_posters_flyers", title: "Customized Posters / Flyers", icon: "faImage", iconLib: "solid", pricing: { basic: 300 } },
+  { id: "animated_logos", title: "Animated Logos", icon: "faStar", iconLib: "solid", pricing: { basic: 1000 } },
+  { id: "customized_brand_logo", title: "Customized Brand Logo", icon: "faPaintBrush", iconLib: "solid", pricing: { basic: 600 } },
+  { id: "static_website", title: "Static Websites", icon: "faGlobe", iconLib: "solid", pricing: { basic: 7000 } },
+  { id: "landing_page", title: "Landing pages", icon: "faLayerGroup", iconLib: "solid", pricing: { basic: 4000 } },
+  { id: "dynamic_website", title: "Dynamic Websites", icon: "faCode", iconLib: "solid", pricing: { basic: 15000 } },
+  { id: "ecommerce_website", title: "E-commerce Websites", icon: "faCartShopping", iconLib: "solid", pricing: { basic: 20000 } },
+  { id: "gmb_profile_setup", title: "GMB Profile Setup", icon: "faMapLocationDot", iconLib: "solid", pricing: { basic: 2000 } },
+  { id: "social_media_management", title: "Social Media Management", icon: "faShareNodes", iconLib: "solid", pricing: { basic: 8000 } },
+  { id: "on_page_seo", title: "On Page SEO", icon: "faMagnifyingGlass", iconLib: "solid", pricing: { basic: 6000 } },
+  { id: "complete_seo", title: "Complete SEO", icon: "faChartLine", iconLib: "solid", pricing: { basic: 10000 }, description: "on-page + off-page + Technical" },
+  { id: "ecommerce_seo", title: "E-commerce SEO", icon: "faCartShopping", iconLib: "solid", pricing: { basic: 20000 } },
+  { id: "android_mobile_app", title: "Android Mobile App", icon: "faAndroid", iconLib: "brands", pricing: { basic: 35000 } },
+  { id: "android_ios", title: "Android + IOS Mobile App", icon: "faMobileScreen", iconLib: "solid", pricing: { basic: 50000 } },
 ];
