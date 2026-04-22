@@ -56,6 +56,8 @@ dotenv.config();
 export const sendEmail = async (req, res) => {
   const { name, email, mobile, business, businessLocation } = req.body;
 
+  console.log("📩 Received:", req.body);
+
   // 1. Create Transporter
   const transporter = nodemailer.createTransport({
     service: "gmail",
