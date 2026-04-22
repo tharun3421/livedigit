@@ -51,7 +51,7 @@ export const sendQuotationEmail = async (services, role, user) => {
   await wakeUp();
 
   return await axios.post(
-    `${API}/api/send-email`,
+    `${API}/api/email`,
     { services, role, user },
     { timeout: 120000 }
   );
