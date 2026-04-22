@@ -26,8 +26,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/pdf", pdfRoutes);
-app.use("/api/send-email", emailSendRoutes); // ✅ moved up, before /api/email
-app.use("/api/email", emailRoutes);          // ✅ now won't intercept send-email
+app.use("/api/send-email", emailSendRoutes); 
+app.use("/api/email", emailRoutes);          
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
