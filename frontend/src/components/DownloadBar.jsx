@@ -29,8 +29,6 @@ window.URL.revokeObjectURL(url);
       // Clear storage
       localStorage.clear();
 
-      // Redirect to home
-      // navigate("/");
 
     } catch (error) {
       console.error("Download failed:", error);
