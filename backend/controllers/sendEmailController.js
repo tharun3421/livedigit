@@ -50,6 +50,8 @@
 
 
 import nodemailer from "nodemailer";
+import dotenv from "dotenv"; // ✅ add this
+dotenv.config(); 
 
 export const sendEmail = async (req, res) => {
   const { name, email, mobile, business, businessLocation } = req.body;
