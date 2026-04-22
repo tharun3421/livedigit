@@ -8,9 +8,9 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        manualChunks: {
-          fontawesome: ["@fortawesome/react-fontawesome", "@fortawesome/free-solid-svg-icons", "@fortawesome/free-brands-svg-icons"],
-          vendor: ["react", "react-dom"],
+        manualChunks: (id) => {
+          if (id.includes('@fortawesome')) return 'fontawesome';
+          if (id.includes('react-dom') || id.includes('react/')) return 'vendor';
         }
       }
     }
