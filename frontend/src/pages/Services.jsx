@@ -127,7 +127,6 @@ import axios from "axios"; // ✅ add this
 import ServiceList from "../components/ServiceList";
 import DownloadBar from "../components/DownloadBar";
 import { services } from "../data/servicesData";
-import { sendQuotationEmail } from "../services/api";
 import { sendQuotationEmail, downloadPDF } from "../services/api"; // ✅ add downloadPDF
 
 export default function Services() {
