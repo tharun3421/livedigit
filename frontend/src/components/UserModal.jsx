@@ -30,18 +30,33 @@ export default function UserModal({ onClose }) {
       return;
     }
 
+    // try {
+    //   setLoading(true);
+    //   await axios.post(`${API}/api/send-email`, form);
+    //   localStorage.setItem("user", JSON.stringify(form));
+    //   // alert("Details sent successfully!");
+    //   navigate("/services");
+    // } catch (error) {
+    //   console.error("Email error:", error.response?.data || error.message);
+    //   alert(error.response?.data?.message || "Failed to Load Services.");
+    // } finally {
+    //   setLoading(false);
+    // }
+
+
     try {
-      setLoading(true);
-      await axios.post(`${API}/api/send-email`, form);
-      localStorage.setItem("user", JSON.stringify(form));
-      // alert("Details sent successfully!");
-      navigate("/services");
-    } catch (error) {
-      console.error("Email error:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "Failed to Load Services.");
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    console.log("📤 Sending to:", `${API}/api/send-email`); // ✅ add this
+    console.log("📦 Form data:", form);                      // ✅ add this
+    await axios.post(`${API}/api/send-email`, form);
+    localStorage.setItem("user", JSON.stringify(form));
+    navigate("/services");
+  } catch (error) {
+    console.error("Email error:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Failed to Load Services.");
+  } finally {
+    setLoading(false);
+  }
   };
 
   return (
