@@ -222,7 +222,7 @@ export default function Services() {
 
           {/* ✅ loading message below icons */}
           {isSending && (
-            <p className="text-xs text-gray-500 mt-2 animate-pulse">
+            <p className="text-xs text-gray-500 mt-2 mb-1 p-2 animate-pulse">
               ⏳ Generating your quotation, please wait...
             </p>
           )}

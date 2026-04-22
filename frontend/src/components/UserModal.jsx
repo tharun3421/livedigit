@@ -21,7 +21,7 @@ export default function UserModal({ onClose }) {
   const handleSubmit = async () => {
     const { name, email, mobile, business, businessLocation } = form;
 
-    if (!name || !email || !mobile || !business || !businessLocation) {
+    if (!name || !mobile || !business || !businessLocation) {
       alert("Please fill all fields");
       return;
     }
