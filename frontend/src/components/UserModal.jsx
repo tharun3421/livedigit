@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ export default function UserModal({ onClose }) {
     business: "",
     businessLocation: "",
   });
-  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL;
 
@@ -18,32 +19,35 @@ export default function UserModal({ onClose }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const { name, email, mobile, business, businessLocation } = form;
 
     if (!name || !mobile || !business || !businessLocation) {
       alert("Please fill all fields");
       return;
     }
-    if (form.email &&!/\S+@\S+\.\S+/.test(email)) {
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
       alert("Enter a valid email");
       return;
     }
 
-    try {
-    setLoading(true);
-    console.log("📤 Sending to:", `${API}/api/send-email`); // ✅ add this
-    console.log("📦 Form data:", form);                      // ✅ add this
-    await axios.post(`${API}/api/send-email`, form);
+    // Save & navigate instantly
     localStorage.setItem("user", JSON.stringify(form));
     navigate("/services");
-  } catch (error) {
-    console.error("Email error:", error.response?.data || error.message);
-    alert(error.response?.data?.message || "Failed to Load Services.");
-  } finally {
-    setLoading(false);
-  }
+
+    // Send email in background (fire-and-forget)
+    axios.post(`${API}/api/send-email`, form).catch((error) => {
+      console.error("Email error:", error.response?.data || error.message);
+    });
   };
+
+  const fields = [
+    { name: "name", placeholder: "Customer Name" },
+    { name: "email", placeholder: "Email Address (optional)" },
+    { name: "mobile", placeholder: "Customer Mobile" },
+    { name: "business", placeholder: "Business Name" },
+    { name: "businessLocation", placeholder: "Business Location" },
+  ];
 
   return (
     <div
@@ -66,13 +70,7 @@ export default function UserModal({ onClose }) {
         </div>
 
         {/* Inputs */}
-        {[
-          { name: "name", placeholder: "Customer Name" },
-          { name: "email", placeholder: "Email Address (optional)" },
-          { name: "mobile", placeholder: "Customer Mobile" },
-          { name: "business", placeholder: "Business Name" },
-          { name: "businessLocation", placeholder: "Business Location" },
-        ].map(({ name, placeholder }, i, arr) => (
+        {fields.map(({ name, placeholder }, i) => (
           <input
             key={name}
             name={name}
@@ -80,7 +78,7 @@ export default function UserModal({ onClose }) {
             value={form[name]}
             onChange={handleChange}
             className={`w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 ${
-              i === arr.length - 1 ? "mb-5" : "mb-3"
+              i === fields.length - 1 ? "mb-5" : "mb-3"
             }`}
           />
         ))}
@@ -88,10 +86,9 @@ export default function UserModal({ onClose }) {
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          disabled={loading}
-          className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm disabled:opacity-50"
+          className="cursor-pointer w-full bg-[#0B1422] hover:bg-[#2A2633] transition p-3 rounded-xl text-white font-medium text-sm"
         >
-          {loading ? "Loading services..." : "Explore Services"}
+          Explore Services
         </button>
       </div>
     </div>
