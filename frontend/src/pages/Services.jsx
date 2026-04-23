@@ -25,7 +25,6 @@ export default function Services() {
       alert("You didn't provide an email address. Please go back and enter your email.");
       return;
     }
-
     try {
       setIsSending(true);
       await sendQuotationEmail(selectedServices, "basic", user);
@@ -40,7 +39,6 @@ export default function Services() {
 
   const handleWhatsApp = async () => {
     if (!selectedServices?.length) return alert("Please select at least one service");
-
     try {
       setIsWhatsApp(true);
 
@@ -59,7 +57,6 @@ export default function Services() {
       const message = encodeURIComponent(
         `Hi, please find the attached quotation PDF for ${user?.business || "your business"}. Kindly check the downloaded file.`
       );
-
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       if (isMobile) {
         window.open(`https://wa.me/?text=${message}`, "_blank");
@@ -75,49 +72,57 @@ export default function Services() {
   };
 
   return (
-    <div className="w-full h-screen flex items-start justify-center">
-      <div className="w-[90vw] h-full bg-[#F8F9FA]">
+    <div className="w-full min-h-screen flex items-start justify-center">
+      <div className="w-full max-w-5xl mx-auto px-3 sm:px-6 min-h-screen bg-[#F8F9FA]">
 
         {/* Header */}
-        <div className="bg-[#0B1422] text-white rounded flex items-center justify-between p-2 px-6">
-          <h1 className="p-1 px-2 font-bold text-xl bg-amber-50 text-[#0B1422] rounded uppercase">
+        <div className="bg-[#0B1422] text-white rounded flex items-center justify-between p-2 px-4 sm:px-6">
+          <h1 className="p-1 px-2 font-bold text-sm sm:text-xl bg-amber-50 text-[#0B1422] rounded uppercase">
             Our Services
           </h1>
-          {user && <p className="capitalize">Customer: {user.name}</p>}
+          {user && (
+            <p className="capitalize text-xs sm:text-sm truncate max-w-[150px] sm:max-w-xs">
+              Customer: {user.name}
+            </p>
+          )}
         </div>
 
+        {/* Service List */}
         <ServiceList services={services} onSelectionChange={setSelectedServices} />
 
-        <div className="flex flex-col items-center justify-center mt-5">
-          <p className="text-sm">
+        {/* Bottom Action Area */}
+        <div className="flex flex-col items-center justify-center mt-4 sm:mt-5 pb-6 px-2">
+          <p className="text-xs sm:text-sm text-center text-gray-600">
             @ Get Your Customized Quotations at Discounted Rates.{" "}
-            <span>Contact our Experts Team</span>
+            <span className="font-medium">Contact our Experts Team</span>
           </p>
 
-          <div className="mt-2 flex items-center gap-6">
+          {/* Buttons Row */}
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-6 w-full">
 
             {/* Email Button */}
             <button
               onClick={handleEmail}
               disabled={isSending || !user?.email}
               title={
-                isSending
-                  ? "Sending..."
-                  : !user?.email
-                  ? "No email provided"
-                  : "Send Quotation to Email"
+                isSending ? "Sending..." : !user?.email ? "No email provided" : "Send Quotation to Email"
               }
-              className={`flex items-center gap-2 text-white bg-black p-2 rounded transition-opacity ${
+              className={`flex items-center gap-2 text-white bg-black px-3 py-2 rounded text-xs sm:text-sm transition-opacity w-full sm:w-auto justify-center ${
                 isSending || !user?.email
                   ? "opacity-50 cursor-not-allowed"
                   : "cursor-pointer hover:opacity-80"
               }`}
             >
-              <p className="text-xs capitalize">Send via</p>
               {isSending ? (
-                <span className="text-xs animate-pulse">Sending...</span>
+                <>
+                  <span className="animate-spin text-base">⏳</span>
+                  <span className="animate-pulse">Sending...</span>
+                </>
               ) : (
-                <i className="fa-regular fa-envelope text-xl" />
+                <>
+                  <i className="fa-regular fa-envelope text-base sm:text-lg" />
+                  <span>Send via Mail</span>
+                </>
               )}
             </button>
 
@@ -126,26 +131,34 @@ export default function Services() {
               onClick={handleWhatsApp}
               disabled={isWhatsApp}
               title={isWhatsApp ? "Preparing PDF..." : "Share on WhatsApp"}
-              className={`flex items-center gap-2 text-white bg-black p-2 rounded transition-opacity ${
+              className={`flex items-center gap-2 text-white bg-black px-3 py-2 rounded text-xs sm:text-sm transition-opacity w-full sm:w-auto justify-center ${
                 isWhatsApp
                   ? "opacity-50 cursor-not-allowed"
                   : "cursor-pointer hover:opacity-80"
               }`}
             >
-              <p className="text-xs capitalize">Share on</p>
               {isWhatsApp ? (
-                <span className="text-xs animate-pulse">Preparing...</span>
+                <>
+                  <span className="animate-spin text-base">⏳</span>
+                  <span className="animate-pulse">Preparing PDF...</span>
+                </>
               ) : (
-                <i className="fa-brands fa-whatsapp text-xl" />
+                <>
+                  <i className="fa-brands fa-whatsapp text-base sm:text-lg" />
+                  <span>Share on WhatsApp</span>
+                </>
               )}
             </button>
 
-            <DownloadBar selectedServices={selectedServices} user={user} />
+            {/* Download Bar */}
+            <div className="w-full sm:w-auto flex justify-center">
+              <DownloadBar selectedServices={selectedServices} user={user} />
+            </div>
           </div>
 
-          {/* Loading message */}
+          {/* Loading Message */}
           {(isSending || isWhatsApp) && (
-            <p className="text-xs text-gray-500 mt-2 mb-1 p-2 animate-pulse">
+            <p className="text-xs text-gray-500 mt-3 text-center animate-pulse">
               {isWhatsApp
                 ? "⏳ Preparing PDF for WhatsApp..."
                 : "⏳ Generating your quotation, please wait..."}
