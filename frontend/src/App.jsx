@@ -4,6 +4,7 @@ import Services from "./pages/Services";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
+import UserModal from "./components/UserModal";
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<UserModal />} />
          <Route
           path="/services"
           element={
