@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function UserModal({ onClose }) {
+export default function UserModal() {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -52,7 +52,7 @@ export default function UserModal({ onClose }) {
   return (
     <div
       className="fixed inset-0 bg-[#0B1422] flex items-center justify-center z-50"
-      onClick={onClose}
+      
     >
       <div
         className="bg-white w-[90%] max-w-md rounded-2xl p-6 shadow-xl"
@@ -62,7 +62,7 @@ export default function UserModal({ onClose }) {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">Enter Your Details</h2>
           <button
-            onClick={onClose}
+            onClick={() => window.location.href = "https://livedigit.netlify.app/"}
             className="cursor-pointer w-8 h-8 flex items-center justify-center font-extrabold bg-amber-500 text-amber-100 rounded-full"
           >
             ✕
