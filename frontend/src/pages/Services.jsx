@@ -81,7 +81,7 @@ export default function Services() {
             Our Services
           </h1>
           {user && (
-            <p className="capitalize text-xs sm:text-sm truncate max-w-[150px] sm:max-w-xs">
+            <p className="capitalize text-xs sm:text-sm truncate max-w-37.5 sm:max-w-xs">
               Customer: {user.name}
             </p>
           )}

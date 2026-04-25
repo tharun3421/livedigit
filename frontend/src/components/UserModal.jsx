@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import bgImage from "../assets/image_dm.jpg";
 
 export default function UserModal() {
   const [form, setForm] = useState({
@@ -50,14 +51,26 @@ export default function UserModal() {
   ];
 
   return (
-    <div
-      className="fixed inset-0 bg-[#0B1422] flex items-center justify-center z-50"
-      
-    >
-      <div
+   <div
+  style={{ backgroundImage: `url(${bgImage})` }}
+  className="fixed inset-0 bg-cover bg-center bg-no-repeat 
+             flex items-center justify-center 
+             z-50 
+             px-4 sm:px-6 md:px-8
+             py-6 sm:py-8
+            min-h-dvh"
+>
+      <div className="absolute inset-0 bg-black/50" />
+      {/* <div
         className="bg-white w-[90%] max-w-md rounded-2xl p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
-      >
+      > */}
+
+       <div
+    className="relative bg-white w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl 
+               p-4 sm:p-6 md:p-8 shadow-2xl z-10"
+    onClick={(e) => e.stopPropagation()}
+  >
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">Enter Your Details</h2>
