@@ -55,7 +55,7 @@ export default function Services() {
       window.URL.revokeObjectURL(url);
 
       const message = encodeURIComponent(
-        `Hi, please find the attached quotation PDF for ${user?.business || "your business"}. Kindly check the downloaded file.`
+        `Hello, please find the attached quotation from livedigit.in .Kindly review it and get back to us.`
       );
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       if (isMobile) {
